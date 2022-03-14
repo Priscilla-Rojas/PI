@@ -3,10 +3,10 @@ import Search from './search'
 
 export default function Nav(){
   return (
-    <Nav>
-      <img src={chef} alt="logo" />
+    <div>
+      <img src={chef} alt="logo" width='50px' />
       <Search/>
 
-    </Nav>
+    </div>
   )
 } 
