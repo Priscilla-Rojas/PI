@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './modules/Home';
-import Inicial from './modules/Inicial';
+import Inicial from './modules/landingPage';
 import CreateRecipe from './modules/createRecipe';
+import DetailRecipe from './modules/DetailRecipe';
 
 
 function App() {
@@ -9,10 +10,9 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<Inicial/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/create-recipe' element={<CreateRecipe/>}/>
-
+        <Route path='/recipes' element={<Home/>}/>
+        <Route path='/recipes/create-recipe' element={<CreateRecipe/>}/>
+        <Route path='/recipes/:idRecipe' element={<DetailRecipe/>}/>
       </Routes>
     </div>
   );

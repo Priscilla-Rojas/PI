@@ -1,0 +1,26 @@
+.nav{
+  display: flex;
+  padding: 5px 20px;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.253);
+}
+.nav img{
+  width: 50px;
+}
+.create{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+  letter-spacing: 1px;
+  border: 1px solid white;
+  padding: 5px 10px ;
+  border-radius: 10px;
+  transition: all 0.5s linear;
+}
+.create:hover{
+  background-color: white;
+  color: rgb(204, 63, 7);
+}

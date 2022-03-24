@@ -1,25 +1,50 @@
+import {  useEffect } from 'react';
+import { connect } from 'react-redux'
+import { getRecipes, getDiets} from '../redux/actions/action';
+
 import Nav from './nav';
-import Card from './card';
 import FilterBy from './filterBy';
-import OrderBy from './orderBy'
+import OrderABC from './orderABC';
+import OrderScore from './orderScore.jsx';
+import Pagination from './Pagination.jsx';
+// import Cards from './cards';
+import styles from '../css/home.module.css'
 
-export default function Home(){
+export function Home({getRecipes, getDiets, orderAbc, recipes, recipesByName, recipesFilter}){
+
+
+  useEffect( () => {
+    getRecipes();
+  },[getRecipes])
+  useEffect( () => {
+    getDiets();
+  },[getDiets])
+
   return (
-    <div>
+    <div className={styles.contaier}>
       <Nav/>
-      <hr />
-      <FilterBy/>
-      <OrderBy/>
-      <hr />
-      <p>Aca inicia el home</p> 
-
-      <div>Paginado</div>
-
-      <hr />
-      <div>LISTADO DE RECETAS
-        <Card/>
-      </div>
-      <hr />
+      <section className={styles.filters}>
+        <FilterBy/>
+        <OrderABC/>
+        <OrderScore/>
+      </section>
+      <Pagination/>
     </div>
   )
 } 
+const mapStateToProps = (state)=>{
+  return {
+    recipes: state.recipes,
+    recipesByName: state.recipesByName,
+    recipesFilter: state.recipesFilter,
+    orderAbc: state.orderAbc,
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRecipes: () => dispatch(getRecipes()),
+    getDiets: (name) => dispatch(getDiets(name))
+  }
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -1,0 +1,24 @@
+.search{
+  width: max-content;
+  display: flex;
+  flex-flow: row nowrap;
+  
+}
+.search input{
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid white;
+  color:  black;
+}
+.search input[type="submit"]{
+  width: max-content;
+  background-color: transparent;
+  transition: all 0.5s linear;
+  color:  white;
+}
+.search input[type="submit"]:hover{
+  background-color: white;
+  color: rgb(204, 63, 7);
+}

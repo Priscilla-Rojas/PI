@@ -10,22 +10,34 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue: Sequelize.UUIDV4
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    resumen:{
+    summary:{
       type: DataTypes.STRING,
       allowNull: false,
     },
-    puntuacion:{
+    spoonacularScore:{
       type: DataTypes.STRING,
+      validate: {
+        min: 0,
+        max: 100
+      }
     },
-    saludable:{
+    healthScore:{
       type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+        max: 100
+      }
     },
-    pasos:{
+    steps:{
       type: DataTypes.TEXT,
-    }
+    },
+    image:{
+      type: DataTypes.STRING,
+      defaultValue: 'https://cdn-icons-png.flaticon.com/512/3570/3570168.png'
+    },
   });
 };

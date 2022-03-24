@@ -3,10 +3,54 @@ var app = express();
 var router = express.Router();
 const axios = require('axios');
 
-const { Recipe, Op } = require('../db.js')
-const { API_KEY, API_KEY1 } = process.env;
+const { Recipe, TypeDiet, Op } = require('../db.js');
+const { json } = require('body-parser');
+const { API_KEY, API_KEY1, API_KEY2, API_KEY_temp, API_KEY_temp2 } = process.env;
 
 let recipesApi;
+
+
+
+router.use(json(express.json()))
+
+router.get('/getall', ( req, res, next)=>{
+
+      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=10&addRecipeInformation=true&apiKey=${API_KEY_temp2}`)
+      let recipesFindBD = Recipe.findAll({
+        include: {
+            model: TypeDiet,
+            // as: 'diets',
+            attributes: ["name"],
+            through: {
+                attributes: []
+            } 
+        }
+      })
+
+      Promise.all([recipesPromesApi, recipesFindBD])
+            .then(response => {
+              const [recipesApis, recipesFindBD] = response;
+              recipesApi = recipesApis.data.results.map( r => {
+                return{
+                  id: r.id,
+                  title: r.title,
+                  spoonacularScore:r.spoonacularScore ,
+                  healthScore: r.healthScore,
+                  summary: r.summary,
+                  image:r.image,
+                  diets: r.diets,
+                  steps: r.analyzedInstructions.length > 0 ? r.analyzedInstructions[0].steps : []
+                }
+              })
+              
+              let result = recipesApi.length > 0 ? [...recipesFindBD, ...recipesApi] : [...recipesFindBD];
+              console.log(result)
+
+              res.send(result)
+            })
+            .catch( e => next(e))
+    
+})
 
 // .then
 router.get('/', ( req, res, next)=>{
@@ -15,26 +59,22 @@ router.get('/', ( req, res, next)=>{
   if(name){
     if(recipesApi){
       console.log('estoy buscando en recipes variable y BD')
-      let filterApi = recipesApi.filter( r => r.name.includes(name)) 
-      let recipesFindBD =  Recipe.findAll({ where: { name: { [Op.substring]: `%${name}%` } } })
-      
-      // let recipeDB = recipesFindBD.then(response => response);
-      // let result = filterApi ? [...recipeDB, ...filterApi] : [...recipeDB]    
-      // result.length > 0 ? res.send(result) : res.status(404).send('No encontramos la receta en nuestra base de Datos')
+      console.log('recipesApi: ', recipesApi)
+      console.log('NAME BODY: ',  name)
+      let filterApi = recipesApi.filter( r => r.title.toLowerCase().includes(name.toLocaleLowerCase())) 
+      let recipesFindBD =  Recipe.findAll({ where: { title: { [Op.substring]: `%${name}%` } } })
 
       recipesFindBD.then(response => {
-        let recipeDB = (response)
-        console.log(' recetas de la base de datos: ', recipeDB)
+        let recipeDB = response;
         let result = filterApi ? [...recipeDB, ...filterApi] : [...recipeDB]    
         result.length > 0 ? res.send(result) : res.status(404).send('No encontramos la receta en nuestra base de Datos')
       })
       
     }
     else{
-      console.log('estoy buscando en recipes Api y BD')
 
       let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=1&addRecipeInformation=true&apiKey=${API_KEY}`)
-      let recipesFindBD =  Recipe.findAll({ where: { name: { [Op.iLike]: `%${name}%` } } });
+      let recipesFindBD =  Recipe.findAll({ where: { title: { [Op.iLike]: `%${name}%` } } });
 
       Promise.all([recipesPromesApi, recipesFindBD])
             .then(response => {
@@ -42,25 +82,26 @@ router.get('/', ( req, res, next)=>{
               recipesApi = recipesApis.data.results.map( r => {
                 return{
                   id: r.id,
-                  name: r.title,
+                  title: r.title,
                   puntuacion:r.spoonacularScore ,
                   saludable: r.healthScore,
-                  resumen: r.summary,
-                  // pasos: r.analyzedInstructions[0] ? r.analizedInstructions[0].steps : ''
+                  summary: r.summary,
+                  image:r.image,
+                  diets: r.diets,
+                  pasos: r.analyzedInstructions.length > 0 ? r.analyzedInstructions.steps : []
                 }
               })
-              let filterApi = recipesApi.filter( r => (r.name).toLowerCase().includes(name.toLowerCase())) 
+              let filterApi = recipesApi.filter( r => (r.title).toLowerCase().includes(name.toLowerCase())) 
               let result = filterApi ? [...recipesFindBD, ...filterApi] : [...recipesFindBD]
               result.length > 0 ? res.send(result) : res.status(404).send('No encontramos la receta en nuestra base de Datos');
             })
             .catch( e => next(e))
-    }
+    };
     
   }
   else{
-    res.send('No has ingresado ningun nombre')
+    res.status(404).send('No has ingresado ningun nombre')
   }
-  
 })
 
 // async
@@ -85,7 +126,6 @@ router.get('/', ( req, res, next)=>{
 
     let filterApi = recipesApiDetail.filter( r => r.name.includes(name)) 
     let result = [...recipesFindBD, ...filterApi]
-    // console.log(recipesApi.data.results)
             
     result.length > 1 ? res.send(result) : res.status(404).send('No encontramos la receta en nuestra base de Datos');
 
@@ -99,32 +139,29 @@ router.get('/:idRecetas', async (req, res, next)=>{
   const { idRecetas } = req.params;
 
   try {
-    console.log('hola antes del if')
     // if(idRecetas.length > 8 ){
     if(idRecetas.includes('-')){
-      console.log('entre al if')
       const receta = await Recipe.findByPk(idRecetas)
-      console.log('receta: ', receta)
       return receta ? res.json(receta) : res.status(404).send('No se encontro ninguna receta con el Id especificado')
-      
+
     }
     else{
-      console.log('entre al else')
-      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY}`)
+      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY2}`)
       
       let recipeApi = {
         id: recipe.data.id,
-        name: recipe.data.title,
-        puntuacion:recipe.data.spoonacularScore ,
-        saludable: recipe.data.healthScore,
-        resumen: recipe.data.summary,
-        // pasos: recipe.data.analizedInstructions[0].steps
+        title: recipe.data.title,
+        spoonacularScore:recipe.data.spoonacularScore ,
+        healthScore: recipe.data.healthScore,
+        diets: recipe.data.diets,
+        summary: recipe.data.summary,
+        image:recipe.data.image,
+        steps: recipe.data.analyzedInstructions.length > 0 ? recipe.data.analyzedInstructions[0].steps : []
       }
-      console.log('receta encontrada: ',recipeApi)
+      console.log(recipe)
       recipeApi ? res.send(recipeApi) : res.status(404).send('No se encontro ninguna receta con el Id especificado')
     }
   } catch (error) {
-    console.log(error)
     next(error)
   }
   
@@ -132,20 +169,30 @@ router.get('/:idRecetas', async (req, res, next)=>{
 
 
 router.post('/', async (req, res, next) =>{
-  const { name, resumen, puntuacion, saludable } = req.body;
+  const { title, spoonacularScore, healthScore, summary, image, diets, steps } = req.body;
 
   try {
     
     const newRecipe = await Recipe.create({
-      name, resumen, puntuacion, saludable,
+      title, spoonacularScore, healthScore, summary, image, diets, steps
     })
-    console.log('recipes: ', recipesApi)
-    res.json(newRecipe)
+    const idsDiets= diets.map( diet => TypeDiet.findOne({
+      attributes: ['id'],
+      where: {
+        name: diet,
+      },
+      
+    }))
+    const response = await Promise.all(idsDiets);
+    console.log('respueta: ',response)
 
+    await newRecipe.addTypeDiets(response)
+
+
+    res.status(200).send({mesage: 'Dietsa agregada correctamente'})
 
   } catch (error) {
-    console.log(error)
-    next(error)
+    res.send(error);
   }
 })
 

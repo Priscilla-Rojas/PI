@@ -1,0 +1,33 @@
+
+.filter{
+  width:  max-content;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.filter label{
+  margin-right: 5px;
+  color:  white;
+  margin: 0 10px;
+  text-transform: capitalize;
+}
+.filter select{
+  font-size: 1rem;
+  background-color: rgba(20, 20, 20, 0.452);
+  color:  white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+.filter  select  option {
+  margin-top: 15px;
+  border-radius: 10px;
+  background-color: rgba(20, 20, 20, 0.849);
+  padding: 5px;
+}
+.filter  select  option:hover{
+  background-color: rgba(20, 20, 20, 0.452);
+  
+}
