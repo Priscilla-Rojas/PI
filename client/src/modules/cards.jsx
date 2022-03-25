@@ -6,7 +6,6 @@ export default function Cards({ recipes }){
   return (
     <div className= {styles.container}>
       {  recipes.map( recipe => {
-        console.log(recipe)
           return <Card
           key={recipe.id}
           id={recipe.id}

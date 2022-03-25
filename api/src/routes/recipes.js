@@ -15,7 +15,7 @@ router.use(json(express.json()))
 
 router.get('/getall', ( req, res, next)=>{
 
-      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=10&addRecipeInformation=true&apiKey=${API_KEY_temp2}`)
+      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=10&addRecipeInformation=true&apiKey=${API_KEY}`)
       let recipesFindBD = Recipe.findAll({
         include: {
             model: TypeDiet,
@@ -44,7 +44,6 @@ router.get('/getall', ( req, res, next)=>{
               })
               
               let result = recipesApi.length > 0 ? [...recipesFindBD, ...recipesApi] : [...recipesFindBD];
-              console.log(result)
 
               res.send(result)
             })
@@ -58,9 +57,6 @@ router.get('/', ( req, res, next)=>{
 
   if(name){
     if(recipesApi){
-      console.log('estoy buscando en recipes variable y BD')
-      console.log('recipesApi: ', recipesApi)
-      console.log('NAME BODY: ',  name)
       let filterApi = recipesApi.filter( r => r.title.toLowerCase().includes(name.toLocaleLowerCase())) 
       let recipesFindBD =  Recipe.findAll({ where: { title: { [Op.substring]: `%${name}%` } } })
 
@@ -141,12 +137,20 @@ router.get('/:idRecetas', async (req, res, next)=>{
   try {
     // if(idRecetas.length > 8 ){
     if(idRecetas.includes('-')){
-      const receta = await Recipe.findByPk(idRecetas)
+      const receta = await Recipe.findByPk(idRecetas, {
+        include: {
+          model: TypeDiet,
+          // as: 'diets',
+          attributes: ["name"],
+          through: {
+              attributes: []
+          }
+    }})
       return receta ? res.json(receta) : res.status(404).send('No se encontro ninguna receta con el Id especificado')
 
     }
     else{
-      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY2}`)
+      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY}`)
       
       let recipeApi = {
         id: recipe.data.id,
@@ -158,7 +162,6 @@ router.get('/:idRecetas', async (req, res, next)=>{
         image:recipe.data.image,
         steps: recipe.data.analyzedInstructions.length > 0 ? recipe.data.analyzedInstructions[0].steps : []
       }
-      console.log(recipe)
       recipeApi ? res.send(recipeApi) : res.status(404).send('No se encontro ninguna receta con el Id especificado')
     }
   } catch (error) {
@@ -184,7 +187,6 @@ router.post('/', async (req, res, next) =>{
       
     }))
     const response = await Promise.all(idsDiets);
-    console.log('respueta: ',response)
 
     await newRecipe.addTypeDiets(response)
 
