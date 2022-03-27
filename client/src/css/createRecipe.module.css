@@ -1,6 +1,7 @@
 .main{
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
+  box-sizing: border-box;
   height: max-content;
   overflow-x: hidden;
   background-image: url(../assets/img/fondo.jpg);
@@ -8,9 +9,10 @@
   background-repeat: repeat-y;
   background-size: cover;
   display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  padding: 5px 0;
+  padding: 0 20px;
 }
 .form {
   max-width: 550px;
@@ -19,7 +21,7 @@
   padding: 15px;
   padding-left: 15px;
   border-radius: 10px;
-
+  margin: 5px 0;
 }
 .header{
   display: flex;
@@ -33,6 +35,7 @@
 }
 .form img{
   width: 70px;
+  cursor: pointer;
 }
 .form h2,
 .form label{
@@ -132,7 +135,7 @@ input[type=submit]:disabled{
 }
 input[type=submit]:enabled:hover{
   background-color: white;
-  color: rgba(20, 20, 20, 0.794);
+  color: rgb(204, 63, 7);
 }
 .error{
   border: 2px solid red;

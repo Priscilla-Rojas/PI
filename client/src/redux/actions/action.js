@@ -20,11 +20,20 @@ export function getRecipes(){
 }
 
 export function getRecipesByName(name){
-  return function (dispatch){
-    return axios.get(`http://localhost:3001/recipes?name=${name}`)
-    .then( data => {
-      dispatch({ type: GET_RECIPES_BYNAME, payload: data.data })
-    })
+  if(name.length > 0){
+    return function (dispatch){
+      return axios.get(`http://localhost:3001/recipes?name=${name}`)
+      .then( data => {
+        dispatch({ type: GET_RECIPES_BYNAME, payload: data.data })
+      })
+      // .catch(e => console.log(e) )
+      .catch(e => alert(`No se ha encontrado ninguna receta con los caracteres enviados`))
+    }
+  }else{
+    return {
+      type: GET_RECIPES_BYNAME,
+      payload: [],
+    }
   }
 }
 export function getDiets(){
@@ -67,7 +76,11 @@ export function detailRecipe(id){
   return function (dispatch){
     return axios.get(`http://localhost:3001/recipes/${id}`)
     .then( data => {
+      console.log(data)
       dispatch({ type: DETAIL_RECIPE, payload: data.data })
+    })
+    .catch(e => {
+      dispatch({ type: DETAIL_RECIPE, payload: 'No Found' })
     })
   }
 }

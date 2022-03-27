@@ -23,15 +23,22 @@ function Pagination({recipes, recipesByName, orderScore, filterByDiet, recipesFi
   const currentPost = posts.slice(indexOfFirstPost, indexOfLastPost);
 
 
-  function paginate (number) {
+  const paginate = (number) => {
     setCurrentPage(number)
+  }
+  const next = () =>{
+    setCurrentPage(currentPage + 1)
+  }
+  const prev = () =>{
+    setCurrentPage(currentPage - 1)
   }
 
   return (
     <main className={style.main} >
-      <NumberPagination postPerPage = {postPerPage} totalPost = {posts.length} paginate = {paginate}/>
+      <NumberPagination postPerPage = {postPerPage} totalPost = {posts.length} paginate = {paginate} currentPage = {currentPage} next = {next} prev = {prev}/>
       <Cards recipes={currentPost}/>
-      <NumberPagination postPerPage = {postPerPage} totalPost = {posts.length} paginate = {paginate}/>
+      <NumberPagination postPerPage = {postPerPage} totalPost = {posts.length} paginate = {paginate} currentPage = {currentPage} next = {next} prev = {prev}/>
+      
     </main>
   )
 

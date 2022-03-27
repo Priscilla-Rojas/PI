@@ -3,6 +3,7 @@ import { addRecipe, getDiets } from "../redux/actions/action";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import chef from '../assets/img/chef.png'
+// import Nav2 from "./nav2";
 
 import style from '../css/createRecipe.module.css'
 
@@ -77,9 +78,12 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
 
   return (
     <main className={style.main}>
+      {/* <Nav2/> */}
       <form className={style.form} onSubmit={(e)=>{
         e.preventDefault()
         addRecipe(newRecipe)
+        alert('receta creada correctamente: ', newRecipe)
+        console.log(newRecipe)
         setNewRecipe({
           ...newRecipe,
           title: '',
@@ -149,6 +153,7 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
         
         <div>
         <label name='steps'>Steps *</label>
+        {danger.steps ? <span className={style.dangerActive}>The recipe steps must contain at least 30 characters</span>: false}
         <textarea className={danger.steps && style.error} value={newRecipe.steps} name="steps" cols="60" rows="10" title="steps" onChange={handleNewRecipe}></textarea>
         </div>
         <input disabled={( (danger.title || danger.healthScore || danger.summary || danger.diets || danger.steps) ||(danger.title === undefined || danger.healthScore === undefined || danger.summary === undefined || danger.diets === undefined || danger.steps === undefined )) ? true : false} type="submit" value='Create Recipe' />

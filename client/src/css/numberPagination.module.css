@@ -2,12 +2,40 @@
   width: max-content;
   margin: 10px auto;
 }
-.nav button{
-  
+.nav a,
+.nav button{ 
   margin: 0 2px;
-  background-color: rgba(20, 20, 20, 0.452);
-  color: white;
+  text-decoration: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 500;
   font-size: 1rem;
   box-shadow: none;
   border: 1px solid white;
+  cursor: pointer;
+  padding: 2px 5px;
+  background-color: #14141473;
+  color: white;
+  text-align: center;
+}
+.nav .activo{
+  background-color: rgb(204, 63, 7);
+  color: white;
+  border: 1px solid white;
+}
+.nextPrev{
+  border: 2px solid rgba(177, 175, 175, 0.623);
+}
+.next{
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.prev{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.next:disabled,
+.prev:disabled{
+  border-color: rgba(177, 175, 175, 0.623);
+  color: rgba(116, 113, 113, 0.65);
+  background-color: transparent;
 }

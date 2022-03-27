@@ -3,25 +3,37 @@ import { connect } from "react-redux";
 import { getRecipesByName } from "../redux/actions/action";
 import style from "../css/search.module.css"
 
-function Search({get_recipes, getRecipesByName}){
+function Search({getRecipesByName, recipesByName}){
 
   const [state, setState] = useState('');
+  const [name, setName] = useState('');
+  
 
+  const handleName =  (e)=>{
+    setName('')
+    getRecipesByName('');
+  }
   const handleState = (e)=>{
+    setName(e.target.value)
     setState(e.target.value)
   }
-  
+  console.log()
   const handleSubmit = (e) => {
     e.preventDefault();
-    getRecipesByName(state.trim());
+    if(state.trim().length < 1) alert('No has ingresado ningun caracter para Filtrar las recetas por nombre')
+    getRecipesByName(state.trim().toLowerCase());
     setState('')
   }
-
   return (
-    <form onSubmit={handleSubmit} className={style.search}>
-      <input type="text" onChange={handleState} value= {state} placeholder="Buscar Receta ..."/>
-      <input type="submit" value='Buscar'/>
-    </form>
+    <section className={style.container}>
+      <form onSubmit={handleSubmit} className={style.search}>
+        <input type="text" onChange={handleState} value= {state} placeholder="Buscar Receta ..."/>
+        <input type="submit" value='Buscar'/>
+      </form>
+      {
+        name.trim() && recipesByName.length > 0? <article>Recipes name contain: {name} <span onClick={handleName}>x</span></article> : false
+      }  
+    </section>
   )
 } 
 const mapStateToProps = (state)=>{

@@ -3,35 +3,33 @@ import { connect } from "react-redux";
 import { filterByDiet } from "../redux/actions/action";
 import style from "../css/filters.module.css"
 
-function FilterBy({filterByDiet, typesDiets, recipesFilter}){
+function FilterBy({filterByDiet, typesDiets, recipesFilter, filters}){
 
   const [state, setState] = useState('');
 
   const handleSelect = (e) => {
       setState( e.target.value)
-    }
-    
+  }
   useEffect( ()=> {
       filterByDiet(state)
   },[filterByDiet, state])
 
-  
   return (
-    <form className={style.filter}>
-      <label>Filter by </label>
-      <div>
-        <select defaultValue=" " onChange={handleSelect}>
-        <option value=" ">Diets</option>
-          {
-            typesDiets.map( (diet, index)=> {
-              return (
-                <option key={index} value={diet.name}>{diet.name}</option>
-              )
-            })
-          }
-        </select>
-      </div>
-    </form>
+    <section>
+      <form className={style.filter}>
+        <label>Filter by </label>
+          <select value={ filters} onChange={handleSelect}>
+          <option value="">All diets</option>
+            {
+              typesDiets.map( (diet, index)=> {
+                return (
+                  <option key={index} value={diet.name}>{diet.name}</option>
+                )
+              })
+            }
+          </select>
+      </form>
+    </section>
   )
 } 
 
@@ -40,6 +38,7 @@ const mapStateToProps = (state)=>{
   return {
     typesDiets: state.typesDiets,
     recipesFilter: state.recipesFilter,
+    filters: state.filters,
   }
 }
 const mapDispatchToProps = (dispatch) => {

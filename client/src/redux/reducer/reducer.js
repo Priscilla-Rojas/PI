@@ -1,5 +1,6 @@
 import { ADD_RECIPE, GET_DIETS, GET_RECIPES, GET_RECIPES_BYNAME, DETAIL_RECIPE, FILTER_BY_DIET, ORDER_ABC, ORDER_SCORE} from "../actions/action";
 
+
 const inicialState  = {
   recipes: [],
   recipesByName: [],
@@ -10,6 +11,7 @@ const inicialState  = {
   orderScore:[],
   typesDiets: [],
   reciepCreated: null,
+  searchName:''
 }
 
 
@@ -69,11 +71,13 @@ export default function reducer(state = inicialState, action){
         else if(state.orderScore.length > 0) return verificar(state.orderScore)
         else return verificar(state.recipes)
         
-    }
+      }
+
+      if(filtrar().length < 1 && action.payload !== "") alert(`No se encontro ninguna receta con la dieta ${action.payload}`) 
 
       return {
         ...state,
-        filters: action.payload,
+        filters: filtrar().length > 0 ? action.payload : "",
         recipesFilter: filtrar().length > 0 ? filtrar() : [],
         orderAbc:[],
         orderScore:[],

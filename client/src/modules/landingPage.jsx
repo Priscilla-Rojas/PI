@@ -1,4 +1,4 @@
-import img from '../assets/img/buscadorRecetas.jpg'
+import img from '../assets/img/cheft.jpg'
 import { Link } from 'react-router-dom'
 import style from '../css/landingPage.module.css'
 

@@ -29,14 +29,20 @@
 }
 .title{
   font-size: 1.2rem;
+  width: 100%;
+  text-align: center;
 }
 .text{
   font-size: .9rem;
 }
 .text,
-.title{
+.title,
+.score{
   text-decoration: none;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
   margin: 0 auto;
+}
+.title{
+  
 }

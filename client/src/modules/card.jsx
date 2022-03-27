@@ -12,7 +12,7 @@ function Card({img, name, score, typeDiet, id}){
     <Link to={`/recipes/${id}`}  className = {styles.container}>
       <img className={styles.img} src={img} alt="Imagen Receta" />
       <h2 className={styles.title}>{name}</h2>
-      <h2 className={styles.title}>Score: {score} 🌟</h2>
+      <h2 className={styles.score}>Score: {score} 🌟</h2>
       <p className={styles.text} >Tipo de Dieta: {diets.length > 0 ? diets.join(', ') : diets}</p>
   
     </Link>

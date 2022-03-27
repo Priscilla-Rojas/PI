@@ -1,17 +1,17 @@
 import { connect } from "react-redux"
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { Navigate } from "react-router-dom"
 import { detailRecipe } from "../redux/actions/action"
 import gifLibro from '../assets/img/libro.gif';
+import Nav2 from "./nav2"
 import style from '../css/detailRecipe.module.css'
+
 
 function DetailRecipe({recipeDetail, detailRecipe}){  
 
   const { idRecipe } = useParams()
 
-  console.log(idRecipe)
-
-  
   useEffect( () => {
     console.log('ejecutando use efcet')
     detailRecipe(idRecipe)
@@ -20,40 +20,40 @@ function DetailRecipe({recipeDetail, detailRecipe}){
     function createMarkup(text) {
       return {__html: text};
     }
-
-    
-
+  if(recipeDetail === 'No Found'){
+    alert('receta no encontrada');
+    return (
+    <Navigate to='/recipes' replace/>
+    )
+  }
   return (
     <main className={style.main}>
-      {recipeDetail === null || typeof(parseInt(recipeDetail.id)) !== typeof(parseInt(idRecipe)) || recipeDetail.id === idRecipe ? <section className={style.container}><img src={gifLibro} alt="Cargando Receta" />{console.log( recipeDetail.id !== idRecipe)}</section> :  
+      <Nav2/>
+      {recipeDetail === null || recipeDetail.id.toString() !== idRecipe.toString() ? <section className={style.container}><img src={gifLibro} alt="Cargando Receta" /></section> :  
       <section className={style.container}>
-        {console.log(recipeDetail)}
         <h2>{recipeDetail.title}</h2>
         <figure>
           <img src={recipeDetail.image}alt="Imagen de la receta" /> 
         </figure>
         <section>
-          <p>Type Diet: {recipeDetail.TypeDiets ? recipeDetail.TypeDiets.map( diet => diet.name).join(', ') : recipeDetail.diets.join(', ')}</p>
-          <p>Summary:</p>
+          <h3>Type Diet: </h3>
+          <p>{recipeDetail.TypeDiets ? recipeDetail.TypeDiets.map( diet => diet.name).join(', ') : recipeDetail.diets.join(', ')}</p>
+          <h3>Recipe Score: <span> {recipeDetail.spoonacularScore} 🌟</span></h3>
+          <h3>Healthy food score: <span>{recipeDetail.healthScore} ❤️</span></h3>
+          <h3>Summary:</h3>
           {
             typeof(!idRecipe.includes('-')) ? <p dangerouslySetInnerHTML={createMarkup(recipeDetail.summary)}></p> :<p>{recipeDetail.summary}</p>
-          }
-          
-          <p>Recipe Score: {recipeDetail.spoonacularScore} 🌟</p>
-          <p>Healthy food score: {recipeDetail.healthScore} ❤️</p>
-          
+          }          
           { typeof(recipeDetail.steps) === 'string' ? <div><p>Steps</p><p>{recipeDetail.steps}</p> </div>: 
-            Array.isArray(recipeDetail.steps) ? 
+            Array.isArray(recipeDetail.steps) && recipeDetail.steps.length? 
             <div>
-              <p>Steps</p>
-              <ul>{recipeDetail.steps.map((step)=>{
-                  return <li>Step {step.number}: {step.step}</li>
+              <h3>Steps</h3>
+              <ul>{recipeDetail.steps.map((step, index)=>{
+                  return <li key={index}>Step {step.number}: {step.step}</li>
                 })}
               </ul> 
             </div>
             : false
-
-            
           }
           
         </section>

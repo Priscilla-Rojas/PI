@@ -93,38 +93,38 @@ __IMPORTANTE__: No se permitirá utilizar librerías externas para aplicar estil
 
 Se debe desarrollar una aplicación de React/Redux que contenga las siguientes pantallas/rutas.
 
-__Pagina inicial__: deben armar una landing page con
+ __Pagina inicial__: deben armar una landing page con  <!--(LISTO) -->
 - [ ] Alguna imagen de fondo representativa al proyecto
-- [ ] Botón para ingresar al home (`Ruta principal`)
+- [ ] Botón para ingresar al home (`Ruta principal`) <!--(LISTO) -->
 
-__Ruta principal__: debe contener
-- [ ] Input de búsqueda para encontrar recetas por nombre
+__Ruta principal__: debe contener  <!--(LISTO) -->
+- [ ] Input de búsqueda para encontrar recetas por nombre <!--(LISTO) -->
 - [ ] Área donde se verá el listado de recetas. Deberá mostrar su:
-  - Imagen
-  - Nombre
-  - Tipo de dieta (vegetariano, vegano, apto celíaco, etc)
-- [ ] Botones/Opciones para filtrar por por tipo de dieta
-- [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las recetas por orden alfabético y por puntuación
-- [ ] Paginado para ir buscando y mostrando las siguientes recetas, 9 recetas por pagina, mostrando las primeros 9 en la primer pagina.
+  - Imagen <!--(LISTO) -->
+  - Nombre <!--(LISTO) -->
+  - Tipo de dieta (vegetariano, vegano, apto celíaco, etc)  <!--(LISTO) -->
+- [ ] Botones/Opciones para filtrar por por tipo de dieta  <!--(LISTO) -->
+- [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las recetas por orden alfabético y por puntuación <!--(LISTO) -->
+- [ ] Paginado para ir buscando y mostrando las siguientes recetas, 9 recetas por pagina, mostrando las primeros 9 en la primer pagina.  <!--(LISTO) -->
 
-__IMPORTANTE__: Dentro de la Ruta Principal se deben mostrar tanto las recetas traidas desde la API como así también las de la base de datos. Debido a que en la API existen alrededor de 5 mil recetas, por cuestiones de performance pueden tomar la simplificación de obtener y paginar las primeras 100.
+__IMPORTANTE__: Dentro de la Ruta Principal se deben mostrar tanto las recetas traidas desde la API como así también las de la base de datos. Debido a que en la API existen alrededor de 5 mil recetas, por cuestiones de performance pueden tomar la simplificación de obtener y paginar las primeras 100.  <!--(LISTO) -->
 
 __Ruta de detalle de receta__: debe contener
-- [ ] Los campos mostrados en la ruta principal para cada receta (imagen, nombre, tipo de plato y tipo de dieta)
-- [ ] Resumen del plato
-- [ ] Puntuación
-- [ ] Nivel de "comida saludable"
-- [ ] Paso a paso
+- [ ] Los campos mostrados en la ruta principal para cada receta (imagen, nombre, tipo de plato y tipo de dieta)  <!--(LISTO) -->
+- [ ] Resumen del plato  <!--(LISTO) -->
+- [ ] Puntuación  <!--(LISTO) -->
+- [ ] Nivel de "comida saludable"  <!--(LISTO) -->
+- [ ] Paso a paso  <!--(LISTO) -->
 
-__Ruta de creación de recetas__: debe contener
-- [ ] Un formulario __controlado con JavaScript__ con los siguientes campos:
-  - Nombre
-  - Resumen del plato
-  - Puntuación
-  - Nivel de "comida saludable"
-  - Paso a paso
-- [ ] Posibilidad de seleccionar/agregar uno o más tipos de dietas
-- [ ] Botón/Opción para crear una nueva receta
+__Ruta de creación de recetas__: debe contener  <!--(LISTO) -->
+- [ ] Un formulario __controlado con JavaScript__ con los siguientes campos:  <!--(LISTO) -->
+  - Nombre  <!--(LISTO) -->
+  - Resumen del plato  <!--(LISTO) -->
+  - Puntuación  <!--(LISTO) -->
+  - Nivel de "comida saludable"  <!--(LISTO) -->
+  - Paso a paso  <!--(LISTO) -->
+- [ ] Posibilidad de seleccionar/agregar uno o más tipos de dietas  <!--(LISTO) -->
+- [ ] Botón/Opción para crear una nueva receta  <!--(LISTO) -->
 
 > Es requisito que el formulario de creación esté validado con JavaScript y no sólo con validaciones HTML. Pueden agregar las validaciones que consideren. Por ejemplo: Que el nombre de la receta no pueda contener símbolos, que la puntuación no pueda exceder determinado valor, etc.
 
@@ -133,19 +133,19 @@ __Ruta de creación de recetas__: debe contener
 El modelo de la base de datos deberá tener las siguientes entidades (Aquellas propiedades marcadas con asterisco deben ser obligatorias):
 
 - [ ] Receta con las siguientes propiedades:
-  - ID: *
-  - Nombre *
-  - Resumen del plato *
-  - Puntuación
-  - Nivel de "comida saludable"
-  - Paso a paso
+  - ID: *  <!--(LISTO) -->
+  - Nombre *  <!--(LISTO) -->
+  - Resumen del plato *  <!--(LISTO) -->
+  - Puntuación  <!--(LISTO) -->
+  - Nivel de "comida saludable"  <!--(LISTO) -->
+  - Paso a paso  <!--(LISTO) -->
 - [ ] Tipo de dieta con las siguientes propiedades:
-  - ID
-  - Nombre
+  - ID  <!--(LISTO) -->
+  - Nombre  <!--(LISTO) -->
 
-La relación entre ambas entidades debe ser de muchos a muchos ya que una receta puede ser parte de varios tipos de dieta en simultaneo y, a su vez, un tipo de dieta puede contener múltiples recetas distintas. Un ejemplo tomado de la API sería el `Strawberry Mango Green Tea Limeade` que es vegetariano, vegano y apto para celíacos, todo al mismo tiempo. Pero a su vez existen otras recetas para vegetarianos.
+La relación entre ambas entidades debe ser de muchos a muchos ya que una receta puede ser parte de varios tipos de dieta en simultaneo y, a su vez, un tipo de dieta puede contener múltiples recetas distintas. Un ejemplo tomado de la API sería el `Strawberry Mango Green Tea Limeade` que es vegetariano, vegano y apto para celíacos, todo al mismo tiempo. Pero a su vez existen otras recetas para vegetarianos.  <!--(LISTO) -->
 
-__IMPORTANTE__: Pensar como modelar los IDs de las recetas en la base de datos. Existen distintas formas correctas de hacerlo pero tener en cuenta que cuando hagamos click en alguna receta, esta puede provenir de la API o de la Base de Datos por lo que cuando muestre su detalle no debería haber ambigüedad en cual se debería mostrar. Por ejemplo si en la API la receta `Strawberry Mango Green Tea Limeade` tiene id = 1 y en nuestra base de datos creamos una nueva receta `Medialunas de Manteca` con id = 1, ver la forma de diferenciarlas cuando querramos acceder al detalle de la misma.
+__IMPORTANTE__: Pensar como modelar los IDs de las recetas en la base de datos. Existen distintas formas correctas de hacerlo pero tener en cuenta que cuando hagamos click en alguna receta, esta puede provenir de la API o de la Base de Datos por lo que cuando muestre su detalle no debería haber ambigüedad en cual se debería mostrar. Por ejemplo si en la API la receta `Strawberry Mango Green Tea Limeade` tiene id = 1 y en nuestra base de datos creamos una nueva receta `Medialunas de Manteca` con id = 1, ver la forma de diferenciarlas cuando querramos acceder al detalle de la misma. <!--(LISTO) -->
 
 
 #### Backend
@@ -155,18 +155,18 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 __IMPORTANTE__: No está permitido utilizar los filtrados, ordenamientos y paginados brindados por la API externa, todas estas funcionalidades tienen que implementarlas ustedes.
 
 - [ ] __GET /recipes?name="..."__:
-  - Obtener un listado de las recetas que contengan la palabra ingresada como query parameter
+  - Obtener un listado de las recetas que contengan la palabra ingresada como query parameter  <!--(LISTO) -->
   - Si no existe ninguna receta mostrar un mensaje adecuado
 - [ ] __GET /recipes/{idReceta}__:
-  - Obtener el detalle de una receta en particular
-  - Debe traer solo los datos pedidos en la ruta de detalle de receta
-  - Incluir los tipos de dieta asociados
+  - Obtener el detalle de una receta en particular <!--(LISTO) -->
+  - Debe traer solo los datos pedidos en la ruta de detalle de receta  <!--(LISTO) -->
+  - Incluir los tipos de dieta asociados <!--(LISTO) -->
 - [ ] __GET /types__:
-  - Obtener todos los tipos de dieta posibles
-  - En una primera instancia, cuando no exista ninguno, deberán precargar la base de datos con los tipos de datos indicados por spoonacular [acá](https://spoonacular.com/food-api/docs#Diets)
+  - Obtener todos los tipos de dieta posibles <!--(LISTO) -->
+  - En una primera instancia, cuando no exista ninguno, deberán precargar la base de datos con los tipos de datos indicados por spoonacular [acá](https://spoonacular.com/food-api/docs#Diets) <!--(LISTO) -->
 - [ ] __POST /recipe__:
-  - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body
-  - Crea una receta en la base de datos
+  - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body <!--(LISTO) -->
+  - Crea una receta en la base de datos  <!--(LISTO) -->
 
 
 #### Testing

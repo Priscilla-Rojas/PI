@@ -7,33 +7,40 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 10px;
 }
 .container{
+  
   width: 90%;
   max-width: 1200px;
-  height: 100%;
+  height: 520px;
   overflow-y: scroll;
-  margin: 0 auto;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: flex-start;
+  margin: 10px auto;
+  padding: 10px;
+
+  /* display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center; */
+
   background-color: rgba(20, 20, 20, 0.452);
   color: white;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  scrollbar-width: thin;          /* "auto" or "thin" */
 }
 .container h2{
   width: 100%;
   text-align: center;
   font-size: 2rem ;
 }
-.container figure,
+
 .container section{
-  width: 48%;
+  width: 80%;
   min-width: 400px;
-  margin: 0;
+  margin: 0 auto;
+}
+.container figure{
+  width: 50%;
+  min-width: 400px;
+  margin: 0 auto;
 }
 .container figure img{
   width: 100%;

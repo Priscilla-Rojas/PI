@@ -15,7 +15,7 @@ router.use(json(express.json()))
 
 router.get('/getall', ( req, res, next)=>{
 
-      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=10&addRecipeInformation=true&apiKey=${API_KEY}`)
+      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${API_KEY_temp}`)
       let recipesFindBD = Recipe.findAll({
         include: {
             model: TypeDiet,
@@ -58,42 +58,24 @@ router.get('/', ( req, res, next)=>{
   if(name){
     if(recipesApi){
       let filterApi = recipesApi.filter( r => r.title.toLowerCase().includes(name.toLocaleLowerCase())) 
-      let recipesFindBD =  Recipe.findAll({ where: { title: { [Op.substring]: `%${name}%` } } })
+      let recipesFindBD =  Recipe.findAll({ 
+        where: { 
+          title: { [Op.substring]: `%${name}%` } }, 
+          include: {
+            model: TypeDiet,
+            // as: 'diets',
+            attributes: ["name"],
+            through: {
+                attributes: []
+            } 
+    } })
 
       recipesFindBD.then(response => {
         let recipeDB = response;
         let result = filterApi ? [...recipeDB, ...filterApi] : [...recipeDB]    
-        result.length > 0 ? res.send(result) : res.status(404).send('No encontramos la receta en nuestra base de Datos')
+        result.length > 0 ? res.status(200).send(result) : res.status(404).send({mesage: 'No encontramos la receta en nuestra base de Datos'})
       })
-      
     }
-    else{
-
-      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=1&addRecipeInformation=true&apiKey=${API_KEY}`)
-      let recipesFindBD =  Recipe.findAll({ where: { title: { [Op.iLike]: `%${name}%` } } });
-
-      Promise.all([recipesPromesApi, recipesFindBD])
-            .then(response => {
-              const [recipesApis, recipesFindBD] = response;
-              recipesApi = recipesApis.data.results.map( r => {
-                return{
-                  id: r.id,
-                  title: r.title,
-                  puntuacion:r.spoonacularScore ,
-                  saludable: r.healthScore,
-                  summary: r.summary,
-                  image:r.image,
-                  diets: r.diets,
-                  pasos: r.analyzedInstructions.length > 0 ? r.analyzedInstructions.steps : []
-                }
-              })
-              let filterApi = recipesApi.filter( r => (r.title).toLowerCase().includes(name.toLowerCase())) 
-              let result = filterApi ? [...recipesFindBD, ...filterApi] : [...recipesFindBD]
-              result.length > 0 ? res.send(result) : res.status(404).send('No encontramos la receta en nuestra base de Datos');
-            })
-            .catch( e => next(e))
-    };
-    
   }
   else{
     res.status(404).send('No has ingresado ningun nombre')
@@ -135,7 +117,6 @@ router.get('/:idRecetas', async (req, res, next)=>{
   const { idRecetas } = req.params;
 
   try {
-    // if(idRecetas.length > 8 ){
     if(idRecetas.includes('-')){
       const receta = await Recipe.findByPk(idRecetas, {
         include: {
@@ -145,12 +126,11 @@ router.get('/:idRecetas', async (req, res, next)=>{
           through: {
               attributes: []
           }
-    }})
+      }})
       return receta ? res.json(receta) : res.status(404).send('No se encontro ninguna receta con el Id especificado')
-
     }
-    else{
-      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY}`)
+    else {
+      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY_temp2}`)
       
       let recipeApi = {
         id: recipe.data.id,
@@ -175,7 +155,6 @@ router.post('/', async (req, res, next) =>{
   const { title, spoonacularScore, healthScore, summary, image, diets, steps } = req.body;
 
   try {
-    
     const newRecipe = await Recipe.create({
       title, spoonacularScore, healthScore, summary, image, diets, steps
     })

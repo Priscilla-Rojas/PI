@@ -17,6 +17,12 @@ describe('Recipe model', () => {
       it('should work when its a valid name', () => {
         Recipe.create({ name: 'Milanesa a la napolitana' });
       });
+      it('should work when its a valid spoonacularScore', () => {
+        Recipe.create({ spoonacularScore: 50 });
+      });
+      it('should work when its a valid spoonacularScore', () => {
+        Recipe.create({ healthScore: 12 });
+      });
     });
   });
 });

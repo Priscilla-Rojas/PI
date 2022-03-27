@@ -1,3 +1,7 @@
+.container{
+  margin: 5px 0;
+  padding: 2px 15px;
+}
 .search{
   width: max-content;
   display: flex;
@@ -15,8 +19,13 @@
 .search input[type="submit"]{
   width: max-content;
   background-color: transparent;
+  font-size: 1rem;
+  color: white;
+  letter-spacing: 1px;
+  border: 1px solid white;
+  padding: 5px 10px ;
+  border-radius: 10px;
   transition: all 0.5s linear;
-  color:  white;
 }
 .search input[type="submit"]:hover{
   background-color: white;
