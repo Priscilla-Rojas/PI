@@ -17,7 +17,7 @@ const NumberPagination = ({postPerPage, totalPost, paginate, currentPage, prev, 
       <button onClick={()=> prev()} className={style.prev} disabled={currentPage === 1 ? true : false}> Prev </button>
       {
         currentPages.map( number => (
-          <button to='#'  className={currentPage === number ? style.activo : false} onClick={()=> paginate(number)} > {number}</button >))
+          <button to='#' key={number} className={currentPage === number ? style.activo : false} onClick={()=> paginate(number)} > {number}</button >))
       }
         <button onClick={()=> next() } className={style.next} disabled={currentPage === numbersPages.length ? true : false}> Next </button>
     </nav>

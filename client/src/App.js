@@ -3,7 +3,6 @@ import Home from './modules/Home';
 import Inicial from './modules/landingPage';
 import CreateRecipe from './modules/createRecipe';
 import DetailRecipe from './modules/DetailRecipe';
-import Nav2 from './modules/nav2';
 
 function App() {
   return (

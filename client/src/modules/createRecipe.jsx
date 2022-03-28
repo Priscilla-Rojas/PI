@@ -19,14 +19,14 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
   })
   const [diets, setDiets] = useState('')
   const [danger, setDanger] = useState({
-  title: undefined, 
-  spoonacularScore: false, 
-  healthScore: undefined, 
-  summary: undefined,
-  image:false, 
-  diets: undefined, 
-  steps: undefined
-})
+    title: undefined, 
+    spoonacularScore: false, 
+    healthScore: undefined, 
+    summary: undefined,
+    image:false, 
+    diets: undefined, 
+    steps: undefined
+  })
 
 
   const validateAddInfo = (key , value)=>{

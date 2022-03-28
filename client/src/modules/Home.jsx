@@ -18,7 +18,7 @@ export function Home({getRecipes, getDiets, orderAbc, recipes, recipesByName, re
   },[getRecipes])
   useEffect( () => {
     getDiets();
-  },[getDiets])
+  },[getDiets, recipes])
 
   return (
     <div className={styles.contaier}>

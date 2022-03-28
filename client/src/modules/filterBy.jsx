@@ -11,14 +11,14 @@ function FilterBy({filterByDiet, typesDiets, recipesFilter, filters}){
       setState( e.target.value)
   }
   useEffect( ()=> {
-      filterByDiet(state)
+      filterByDiet(state.toLowerCase())
   },[filterByDiet, state])
 
   return (
     <section>
       <form className={style.filter}>
         <label>Filter by </label>
-          <select value={ filters} onChange={handleSelect}>
+          <select value={ state} onChange={handleSelect}>
           <option value="">All diets</option>
             {
               typesDiets.map( (diet, index)=> {

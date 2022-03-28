@@ -41,7 +41,7 @@ export function getDiets(){
     return axios.get(`http://localhost:3001/types`)
     
     .then( data => {
-      dispatch({ type: GET_DIETS, payload: data.data })
+      dispatch({ type: GET_DIETS, payload: data.data})
     })
   }
 }

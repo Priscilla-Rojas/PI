@@ -36,6 +36,7 @@ function OrderABC({ orderABC, recipes, recipesByName, recipesFilter }){
       orderABC(recipesOrder)
       setState('')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[state])
 
   return (

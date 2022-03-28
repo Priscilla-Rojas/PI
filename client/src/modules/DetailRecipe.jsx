@@ -29,7 +29,7 @@ function DetailRecipe({recipeDetail, detailRecipe}){
   return (
     <main className={style.main}>
       <Nav2/>
-      {recipeDetail === null || recipeDetail.id.toString() !== idRecipe.toString() ? <section className={style.container}><img src={gifLibro} alt="Cargando Receta" /></section> :  
+      {recipeDetail === null ||recipeDetail.id.toString() !== idRecipe.toString() ? <section className={style.containerLoader}><img className={style.img} src={gifLibro} alt="Cargando Receta" /></section> :  
       <section className={style.container}>
         <h2>{recipeDetail.title}</h2>
         <figure>

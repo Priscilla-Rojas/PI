@@ -5,17 +5,15 @@ const axios = require('axios');
 
 const { Recipe, TypeDiet, Op } = require('../db.js');
 const { json } = require('body-parser');
-const { API_KEY, API_KEY1, API_KEY2, API_KEY_temp, API_KEY_temp2 } = process.env;
+const { API_KEY, API_KEY1, API_KEY2, API_KEY_temp, API_KEY_temp2, API_KEY_temp1 } = process.env;
 
 let recipesApi;
-
-
 
 router.use(json(express.json()))
 
 router.get('/getall', ( req, res, next)=>{
 
-      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${API_KEY_temp}`)
+      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${API_KEY_temp1}`)
       let recipesFindBD = Recipe.findAll({
         include: {
             model: TypeDiet,
@@ -82,36 +80,6 @@ router.get('/', ( req, res, next)=>{
   }
 })
 
-// async
-/*app.get('/', async (req, res, next) => {
-  const { name } = req.query;
-
-  try {
-
-    let recipesApi = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=5&addRecipeInformation=true&apiKey=${API_KEY}`)
-
-    let recipesFindBD =  await Recipe.findAll({ where: { name: { [Op.substring]: `%${name}%` } } })
-
-    const recipesApiDetail = recipesApi.data.results.map( r => {
-        return{
-          id: r.id,
-          name: r.title,
-          puntuacion:r.spoonacularScore ,
-          saludable: r.healthScore,
-          pasos: r.summary
-        }
-      })
-
-    let filterApi = recipesApiDetail.filter( r => r.name.includes(name)) 
-    let result = [...recipesFindBD, ...filterApi]
-            
-    result.length > 1 ? res.send(result) : res.status(404).send('No encontramos la receta en nuestra base de Datos');
-
-  } catch (error) {
-    next(e)
-  }
-}) */
-
 
 router.get('/:idRecetas', async (req, res, next)=>{
   const { idRecetas } = req.params;
@@ -169,12 +137,12 @@ router.post('/', async (req, res, next) =>{
 
     await newRecipe.addTypeDiets(response)
 
-
     res.status(200).send({mesage: 'Dietsa agregada correctamente'})
 
   } catch (error) {
     res.send(error);
   }
 })
+
 
 module.exports =  router;

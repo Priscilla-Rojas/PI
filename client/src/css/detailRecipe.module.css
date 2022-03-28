@@ -8,7 +8,8 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-.container{
+.container,
+.containerLoader{
   
   width: 90%;
   max-width: 1200px;
@@ -17,19 +18,27 @@
   margin: 10px auto;
   padding: 10px;
 
-  /* display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center; */
-
   background-color: rgba(20, 20, 20, 0.452);
   color: white;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.containerLoader{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
 }
 .container h2{
   width: 100%;
   text-align: center;
   font-size: 2rem ;
+}
+
+.container .img{
+  width: 200px;
+  height: 200px;
+  margin: auto;
 }
 
 .container section{
@@ -57,15 +66,12 @@
 .container::-webkit-scrollbar {
   -webkit-appearance: none;
 }
-
 .container::-webkit-scrollbar:vertical {
   width:7px;
 }
-
 .container::-webkit-scrollbar-button:increment,.container::-webkit-scrollbar-button {
   display: none;
 } 
-
 .container::-webkit-scrollbar-thumb {
   background-color: #747474;
   border-radius: 20px;
