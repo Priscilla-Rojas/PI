@@ -7,7 +7,7 @@ import FilterBy from './filterBy';
 import OrderABC from './orderABC';
 import OrderScore from './orderScore.jsx';
 import Pagination from './Pagination.jsx';
-// import Cards from './cards';
+import gifLibro from '../assets/img/libro.gif'
 import styles from '../css/home.module.css'
 
 export function Home({getRecipes, getDiets, orderAbc, recipes, recipesByName, recipesFilter}){
@@ -28,7 +28,14 @@ export function Home({getRecipes, getDiets, orderAbc, recipes, recipesByName, re
         <OrderABC/>
         <OrderScore/>
       </section>
-      <Pagination/>
+      {
+        recipes.length ? <Pagination/> : 
+        <section className={styles.containerLoader}>
+          <img className={styles.img} src={gifLibro} alt="Cargando Receta" />
+          <h2>Loading recipes ...</h2>
+        </section>
+      }
+      
     </div>
   )
 } 

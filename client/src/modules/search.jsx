@@ -20,7 +20,7 @@ function Search({getRecipesByName, recipesByName}){
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(state.trim().length < 1) alert('No has ingresado ningun caracter para Filtrar las recetas por nombre')
+    if(state.trim().length < 1) return alert('You have not entered any characters.')
     getRecipesByName(state.trim().toLowerCase());
     setState('')
   }
@@ -31,7 +31,7 @@ function Search({getRecipesByName, recipesByName}){
         <input type="submit" value='Buscar'/>
       </form>
       {
-        name.trim() && recipesByName.length > 0? <article>Recipes name contain: {name} <span onClick={handleName}>x</span></article> : false
+        name.trim() && recipesByName.length > 0 ? <article className={style.filter}>Recipes name contain: {name} <span className={style.close} onClick={handleName}>x</span></article> : false
       }  
     </section>
   )

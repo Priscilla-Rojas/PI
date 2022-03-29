@@ -13,7 +13,7 @@ router.use(json(express.json()))
 
 router.get('/getall', ( req, res, next)=>{
 
-      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${API_KEY_temp1}`)
+      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=50&addRecipeInformation=true&apiKey=${API_KEY}`)
       let recipesFindBD = Recipe.findAll({
         include: {
             model: TypeDiet,
@@ -95,7 +95,7 @@ router.get('/:idRecetas', async (req, res, next)=>{
               attributes: []
           }
       }})
-      return receta ? res.json(receta) : res.status(404).json('No se encontro ninguna receta con el Id especificado')
+      return receta ? res.json(receta) : res.status(404).json({mesage: 'No se encontro ninguna receta con el Id especificado'})
     }
     else {
       let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY_temp2}`)
@@ -110,12 +110,11 @@ router.get('/:idRecetas', async (req, res, next)=>{
         image:recipe.data.image,
         steps: recipe.data.analyzedInstructions.length > 0 ? recipe.data.analyzedInstructions[0].steps : []
       }
-      recipeApi ? res.status(200).json(recipeApi) : res.status(404).json('No se encontro ninguna receta con el Id especificado')
+      recipeApi ? res.status(200).json(recipeApi) : res.status(404).json({mesage: 'No se encontro ninguna receta con el Id especificado'})
     }
   } catch (error) {
     next(error)
   }
-  
 })
 
 
@@ -123,21 +122,33 @@ router.post('/', async (req, res, next) =>{
   const { title, spoonacularScore, healthScore, summary, image, diets, steps } = req.body;
 
   try {
-    const newRecipe = await Recipe.create({
-      title, spoonacularScore, healthScore, summary, image, diets, steps
-    })
-    const idsDiets= diets.map( diet => TypeDiet.findOne({
-      attributes: ['id'],
-      where: {
-        name: diet,
-      },
-      
-    }))
-    const response = await Promise.all(idsDiets);
+    if(title && summary ){
+      const newRecipe = await Recipe.create({
+        title, 
+        spoonacularScore, 
+        healthScore, 
+        summary, 
+        diets, 
+        steps,
+        image: image.length ? image : undefined
+      })
+      const idsDiets= diets.map( diet => TypeDiet.findOne({
+        attributes: ['id'],
+        where: {
+          name: diet,
+        },
+        
+      }))
+      const response = await Promise.all(idsDiets);
+  
+      await newRecipe.addTypeDiets(response)
+  
+      res.status(200).json({mesage: 'Dieta agregada correctamente'})
+    }else{
+      res.status(404).json({mesage: 'Los campos Title y sumary son obligatorios '})
+    }
 
-    await newRecipe.addTypeDiets(response)
-
-    res.status(200).send({mesage: 'Dietsa agregada correctamente'})
+    
 
   } catch (error) {
     res.send(error);

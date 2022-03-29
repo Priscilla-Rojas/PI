@@ -13,7 +13,6 @@ function DetailRecipe({recipeDetail, detailRecipe}){
   const { idRecipe } = useParams()
 
   useEffect( () => {
-    console.log('ejecutando use efcet')
     detailRecipe(idRecipe)
   },[detailRecipe, idRecipe])
 
@@ -21,15 +20,17 @@ function DetailRecipe({recipeDetail, detailRecipe}){
       return {__html: text};
     }
   if(recipeDetail === 'No Found'){
-    alert('receta no encontrada');
     return (
-    <Navigate to='/recipes' replace/>
+    <Navigate to='*' replace/>
     )
   }
   return (
     <main className={style.main}>
       <Nav2/>
-      {recipeDetail === null ||recipeDetail.id.toString() !== idRecipe.toString() ? <section className={style.containerLoader}><img className={style.img} src={gifLibro} alt="Cargando Receta" /></section> :  
+      {recipeDetail === null ||recipeDetail.id.toString() !== idRecipe.toString() ? <section className={style.containerLoader}>
+        <img className={style.img} src={gifLibro} alt="Cargando Receta" />
+        <h2>Loading recipes ...</h2>
+      </section> :  
       <section className={style.container}>
         <h2>{recipeDetail.title}</h2>
         <figure>

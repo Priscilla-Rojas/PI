@@ -36,7 +36,7 @@ function OrderScore({orderScore, recipesFilter, recipes, recipesByName}){
     <form className={style.filter} >
       <label>Sort</label>
       <div>
-        <select defaultValue="" onChange={handleSelect}>
+        <select defaultValue={state} onChange={handleSelect}>
           <option value="" > Score </option>
           <option value="descendente" > Lowest score </option>
           <option value="ascendente" > Higthsts score </option>

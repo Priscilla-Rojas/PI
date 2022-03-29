@@ -10,8 +10,8 @@ const inicialState  = {
   orderAbc:[],
   orderScore:[],
   typesDiets: [],
-  reciepCreated: null,
-  searchName:''
+  // reciepCreated: ,
+  // searchName:''
 }
 
 
@@ -22,6 +22,7 @@ export default function reducer(state = inicialState, action){
       return {
         ...state,
         recipes: [...action.payload],
+        recipesByName: [],
       }
       
     case GET_RECIPES_BYNAME: 

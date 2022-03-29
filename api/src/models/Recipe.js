@@ -23,7 +23,8 @@ module.exports = (sequelize) => {
       validate: {
         min: 0,
         max: 100
-      }
+      },
+      defaultValue: 0
     },
     healthScore:{
       type: DataTypes.INTEGER,
@@ -37,7 +38,7 @@ module.exports = (sequelize) => {
     },
     image:{
       type: DataTypes.STRING,
-      defaultValue: 'https://cdn-icons-png.flaticon.com/512/3570/3570168.png'
+      defaultValue: "https://cdn-icons-png.flaticon.com/512/3570/3570168.png"
     },
   });
 };

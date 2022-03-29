@@ -10,8 +10,8 @@ import style from '../css/createRecipe.module.css'
 function CreateRecipe({addRecipe, getDiets, typesDiets}){
   const [newRecipe, setNewRecipe] = useState({
     title: '', 
-    spoonacularScore: false, 
-    healthScore: false, 
+    spoonacularScore: 0, 
+    healthScore: 0, 
     summary: '',
     image:'', 
     diets: [], 
@@ -25,17 +25,17 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
     summary: undefined,
     image:false, 
     diets: undefined, 
-    steps: undefined
+    steps: undefined,
   })
 
-
   const validateAddInfo = (key , value)=>{
-    if (key === 'title' && value.trim().length < 3) return setDanger({...danger, [key]: true});
-    if ((key === 'spoonacularScore' || key === 'healthScore')&& (value > 100 || value < 0)) return setDanger({...danger, [key]: true})
+    if ((key === 'title' && value.trim().length < 3) ) return setDanger({...danger, [key]: true});
+    if ((key === 'spoonacularScore' || key === 'healthScore') && ((value > 100 || value < 0) || isNaN(parseInt(value))))return setDanger({...danger, [key]: true})
     if ( key === 'summary' && value.trim().length < 20) return setDanger({...danger, [key]: true})
-    if ( key === 'steps' && value.trim().length < 30) return setDanger({...danger, [key]: true})
+    if ( key === 'steps' && value.trim().length < 30 ) return setDanger({...danger, [key]: true})
     if ( key === 'diets' && value.length < 1) return setDanger({...danger, [key]: true})
-    // if ( key === 'image' && value === (/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)?(jpg|jpeg|png)/)) return setDanger({...danger, [key]: true})
+    if ( key === 'image' && !(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)?(jpg|jpeg|png)/.test(value)) && value !==  "") return setDanger({...danger, [key]: true})
+    if ( key === 'title' && /[@$?./*+¡\-_]/.test(value)) return setDanger({...danger, [key]: true})
     return setDanger({...danger, [key]: false})
   }
 
@@ -43,7 +43,6 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
     let name = e.target.name;
     let value = e.target.value;
     validateAddInfo(name, value);
-    // if(!validate) {
       setNewRecipe({
         ...newRecipe,
         [name]: value,
@@ -83,7 +82,6 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
         e.preventDefault()
         addRecipe(newRecipe)
         alert('receta creada correctamente: ', newRecipe)
-        console.log(newRecipe)
         setNewRecipe({
           ...newRecipe,
           title: '',
@@ -94,6 +92,16 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
           diets: [] ,
           steps:'',
         }) 
+        setDanger({
+          ...danger,
+          title: undefined, 
+          spoonacularScore: false, 
+          healthScore: undefined, 
+          summary: undefined,
+          image:false, 
+          diets: undefined, 
+          steps: undefined,
+        }) 
       }}>
         <div className={style.header}>
           <h2>Create Recipe<p>Items marked with * are required</p></h2>
@@ -103,17 +111,17 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
         <div>
           <label name='title' aria-required>Name *</label>
           <input className={danger.title && style.error} value={newRecipe.title} type="text" name="title" placeholder="Name your recipe" onChange={handleNewRecipe} />
-          {danger.title ? <span className={style.dangerActive}>* The title is required</span>: false} 
+          {danger.title ? <span className={style.dangerActive}>* The title is required and can only contain letters and numbers</span>: false} 
         </div>
         <div>
           <label name='puntuacion'>Score</label>
           <input placeholder="0"  className={danger.spoonacularScore && style.error} value={newRecipe.spoonacularScore} type="number" name="spoonacularScore" title="spoonacularScore" min="0" max="100" onChange={handleNewRecipe} />
-          {danger.spoonacularScore ? <span className={style.dangerActive}>* Score must be greater than 0 and less than 100</span>: false} 
+          {danger.spoonacularScore ? <span className={style.dangerActive}>* The score must be a NUMBER greater than 0 and less than 100</span>: false} 
         </div>
         <div>
           <label name='saludable'>Healthy food score *</label>
           <input placeholder="0" className={danger.healthScore && style.error} value={newRecipe.healthScore} type="number" name="healthScore" title="healthScore" min="0" max="100" onChange={handleNewRecipe}/>
-          {danger.healthScore ? <span className={style.dangerActive}>* Score must be greater than 0 and less than 100</span>: false}
+          {danger.healthScore ? <span className={style.dangerActive}>* The score must be a NUMBER greater than 0 and less than 100</span>: false}
         </div>
           {danger.diets ? <span className={style.dangerActive}>* The recipe must contain at least one type of diet</span>: false}
         <div>
@@ -176,3 +184,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateRecipe)
 
 // (ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)?(jpg|jpeg|png)
 
+// /[a-zA-Z0-9A-ZÀ-ÿ\s]{1,40}$/.test(value)

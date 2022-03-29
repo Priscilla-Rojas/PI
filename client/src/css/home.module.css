@@ -23,3 +23,26 @@
   justify-content: center;
   align-items: center;
 }
+.containerLoader{
+  width: 90%;
+  margin: 10px auto;
+  background-color: rgba(0, 0, 0, 0.253);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+.containerLoader .img{
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  object-fit: cover;
+}
+.containerLoader h2{
+  margin: 0 auto;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-shadow: -1px 3px 4px black;
+  font-size: 2rem;
+}
