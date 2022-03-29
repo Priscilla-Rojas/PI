@@ -18,14 +18,14 @@ function FilterBy({filterByDiet, typesDiets, recipesFilter, filters}){
     <section>
       <form className={style.filter}>
         <label>Filter by </label>
-          <select value={ state} onChange={handleSelect}>
+          <select value={ recipesFilter.length ? state : ""} onChange={handleSelect}>
           <option value="">All diets</option>
             {
-              typesDiets.map( (diet, index)=> {
+              typesDiets.length ? typesDiets.map( (diet, index)=> {
                 return (
                   <option key={index} value={diet.name}>{diet.name}</option>
                 )
-              })
+              }) : false
             }
           </select>
       </form>

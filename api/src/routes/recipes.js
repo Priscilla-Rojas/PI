@@ -71,12 +71,12 @@ router.get('/', ( req, res, next)=>{
       recipesFindBD.then(response => {
         let recipeDB = response;
         let result = filterApi ? [...recipeDB, ...filterApi] : [...recipeDB]    
-        result.length > 0 ? res.status(200).send(result) : res.status(404).send({mesage: 'No encontramos la receta en nuestra base de Datos'})
+        result.length > 0 ? res.status(200).json(result) : res.status(404).json({mesage: 'No encontramos la receta en nuestra base de Datos'})
       })
     }
   }
   else{
-    res.status(404).send('No has ingresado ningun nombre')
+    res.status(404).json('No has ingresado ningun nombre')
   }
 })
 
@@ -95,7 +95,7 @@ router.get('/:idRecetas', async (req, res, next)=>{
               attributes: []
           }
       }})
-      return receta ? res.json(receta) : res.status(404).send('No se encontro ninguna receta con el Id especificado')
+      return receta ? res.json(receta) : res.status(404).json('No se encontro ninguna receta con el Id especificado')
     }
     else {
       let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY_temp2}`)
@@ -110,7 +110,7 @@ router.get('/:idRecetas', async (req, res, next)=>{
         image:recipe.data.image,
         steps: recipe.data.analyzedInstructions.length > 0 ? recipe.data.analyzedInstructions[0].steps : []
       }
-      recipeApi ? res.send(recipeApi) : res.status(404).send('No se encontro ninguna receta con el Id especificado')
+      recipeApi ? res.status(200).json(recipeApi) : res.status(404).json('No se encontro ninguna receta con el Id especificado')
     }
   } catch (error) {
     next(error)

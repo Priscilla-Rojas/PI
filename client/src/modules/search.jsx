@@ -17,7 +17,7 @@ function Search({getRecipesByName, recipesByName}){
     setName(e.target.value)
     setState(e.target.value)
   }
-  console.log()
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if(state.trim().length < 1) alert('No has ingresado ningun caracter para Filtrar las recetas por nombre')

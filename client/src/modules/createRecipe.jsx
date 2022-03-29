@@ -10,8 +10,8 @@ import style from '../css/createRecipe.module.css'
 function CreateRecipe({addRecipe, getDiets, typesDiets}){
   const [newRecipe, setNewRecipe] = useState({
     title: '', 
-    spoonacularScore: 0, 
-    healthScore: 0, 
+    spoonacularScore: false, 
+    healthScore: false, 
     summary: '',
     image:'', 
     diets: [], 
@@ -107,12 +107,12 @@ function CreateRecipe({addRecipe, getDiets, typesDiets}){
         </div>
         <div>
           <label name='puntuacion'>Score</label>
-          <input className={danger.spoonacularScore && style.error} value={newRecipe.spoonacularScore} type="number" name="spoonacularScore" title="spoonacularScore" min="0" max="100" onChange={handleNewRecipe} />
+          <input placeholder="0"  className={danger.spoonacularScore && style.error} value={newRecipe.spoonacularScore} type="number" name="spoonacularScore" title="spoonacularScore" min="0" max="100" onChange={handleNewRecipe} />
           {danger.spoonacularScore ? <span className={style.dangerActive}>* Score must be greater than 0 and less than 100</span>: false} 
         </div>
         <div>
           <label name='saludable'>Healthy food score *</label>
-          <input className={danger.healthScore && style.error} value={newRecipe.healthScore} type="number" name="healthScore" title="healthScore" min="0" max="100" onChange={handleNewRecipe}/>
+          <input placeholder="0" className={danger.healthScore && style.error} value={newRecipe.healthScore} type="number" name="healthScore" title="healthScore" min="0" max="100" onChange={handleNewRecipe}/>
           {danger.healthScore ? <span className={style.dangerActive}>* Score must be greater than 0 and less than 100</span>: false}
         </div>
           {danger.diets ? <span className={style.dangerActive}>* The recipe must contain at least one type of diet</span>: false}
