@@ -1,3 +1,4 @@
+@import url(./variable.css);
 .container{
   box-sizing: border-box;
   width: 100vw;
@@ -21,7 +22,7 @@
   object-fit: cover;
 }
 .container > div{
-  width: 50%;
+  width: 40%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -31,7 +32,7 @@
 .container p{
   width: 100%;
   margin: 5px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: var(--txt-family);
   font-size: 2.8rem;
   font-weight: bold;
   text-align: center;
@@ -40,22 +41,36 @@
 .button{
   display: inline-block;
   cursor: pointer;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: var(--txt-family);
   padding: 10px 20px;
   margin: 15px 0;
   font-size:2rem ;
   text-decoration: none;
   color: white;
-  border: 3px solid rgba(219, 115, 30, 0.678);
-  background-color: rgba(226, 123, 5, 0.671);
+  border: 3px solid var(--txt-color-hover);
+  background-color: rgba(204, 63, 7, 0.671);
   border-radius: 10px;
   transition: all 0.5s linear;
 }
 .button:hover{
   transform: scale(1.1);
-  background-color:rgb(236, 114, 44) ;
+  background-color: var(--txt-color-hover) ;
 }
-.button:active{
-  transform: scale(1.2);
-  background-color:rgb(90, 175, 33) ;
+
+@media (max-width: 700px){
+  .container p{
+    font-size: 2rem;
+  }
+  .button{
+    padding: 5px 10px;
+    font-size:1.5rem ;
+  }
+}
+@media (max-width: 480px){
+  .container > div{
+    width: 80%;
+  }
+  .container p{
+    text-shadow: 0px -1px 5px black;;
+  }
 }

@@ -1,3 +1,4 @@
+@import url(./variable.css);
 .nav{
   width: max-content;
   margin: 10px auto;
@@ -6,20 +7,20 @@
 .nav button{ 
   margin: 0 2px;
   text-decoration: none;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: var(--txt-family);
   font-weight: 500;
   font-size: 1rem;
   box-shadow: none;
   border: 1px solid white;
   cursor: pointer;
   padding: 2px 5px;
-  background-color: #14141473;
+  background-color: var(--bg-color);
   color: white;
   text-align: center;
 }
 .nav .activo{
-  background-color: rgb(204, 63, 7);
-  color: white;
+  background-color: var(--txt-color-hover);
+  color: vat(--txt-color);
   border: 1px solid white;
 }
 .nextPrev{

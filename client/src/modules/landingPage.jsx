@@ -10,12 +10,11 @@ export default function Inicial(){
       </figure>
       <div>
         <p>Welcome to</p>
-        <p>My Recipes Project App !</p> 
+        <p>My Recipes Project App!</p> 
         <Link to='/recipes' className={style.button}>
-          Iniciar
+          ¡Go!
         </Link>
       </div>
-      
     </div>
   )
-} 
+}

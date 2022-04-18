@@ -1,21 +1,23 @@
+@import url(./variable.css);
 .nav{
   box-sizing: border-box;
   width: 100%;
-  display: flex;
   padding: 5px 20px;
+  display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(20, 20, 20, 0.452);
+  background-color: var(--bg-color);
+
 }
 .nav img{
   width: 50px;
 }
 .create{
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: var(--txt-family);
   text-decoration: none;
   font-size: 1rem;
-  color: white;
+  color: var(--txt-color);
   letter-spacing: 1px;
   border: 1px solid white;
   padding: 5px 10px ;
@@ -23,6 +25,68 @@
   transition: all 0.5s linear;
 }
 .create:hover{
-  background-color: white;
-  color: rgb(204, 63, 7);
+  background-color: var(--bg-color-hover);
+  color: var(--txt-color-hover);
+}
+.containerFilters{
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-flow: row wrap;
+}
+.nav .iconFilter{
+  display: none;
+}
+.filters{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid white;
+  padding: 10px ;
+  margin-top: 10px;
+}
+
+@media (max-width: 700px){
+  .nav .iconFilter{
+    width: max-content;
+    height: max-content;
+    display: inline-block;
+    filter: contrast(100%);
+    cursor: pointer;
+  }
+  .nav .iconFilter img{
+    width: 40px;
+  }
+  .nav .iconFilter{
+    position: absolute;
+    top: 12px;
+    right: 50px
+  }
+  .filters{
+    display: none;
+  }
+  .nav{
+    overflow:hidden;
+  }
+  .nav .containerFilters .filters{
+    display: block;
+    /* min-width: 100vw; */
+  }
+}
+@media (max-width: 520px){
+  .nav .iconFilter{
+    position: absolute;
+    top: 15px;
+    right: 30px
+  }
+  .nav .iconFilter img{
+    width: 35px;
+  }
+  .create{
+    font-size: .9rem;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    padding: 5px;
+  }
 }

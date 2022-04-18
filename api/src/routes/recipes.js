@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const { Recipe, TypeDiet, Op } = require('../db.js');
 const { json } = require('body-parser');
-const { API_KEY, API_KEY1, API_KEY2, API_KEY_temp, API_KEY_temp2, API_KEY_temp1 } = process.env;
+const { API_KEY, API_KEY1, API_KEY2, API_KEY_temp, API_KEY_temp2, API_KEY33, API_KEY_temp1 } = process.env;
 
 let recipesApi;
 
@@ -13,7 +13,7 @@ router.use(json(express.json()))
 
 router.get('/getall', ( req, res, next)=>{
 
-      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=50&addRecipeInformation=true&apiKey=${API_KEY}`)
+      let recipesPromesApi =  axios.get(`https://api.spoonacular.com/recipes/complexSearch?number=100&addRecipeInformation=true&apiKey=${API_KEY33}`)
       let recipesFindBD = Recipe.findAll({
         include: {
             model: TypeDiet,
@@ -98,7 +98,7 @@ router.get('/:idRecetas', async (req, res, next)=>{
       return receta ? res.json(receta) : res.status(404).json({mesage: 'No se encontro ninguna receta con el Id especificado'})
     }
     else {
-      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY_temp2}`)
+      let recipe = await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecetas)}/information/?apiKey=${API_KEY33}`)
       
       let recipeApi = {
         id: recipe.data.id,

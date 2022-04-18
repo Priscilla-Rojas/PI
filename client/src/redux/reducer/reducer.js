@@ -23,6 +23,7 @@ export default function reducer(state = inicialState, action){
         ...state,
         recipes: [...action.payload],
         recipesByName: [],
+        recipeDetail: null,
       }
       
     case GET_RECIPES_BYNAME: 

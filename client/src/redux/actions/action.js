@@ -12,10 +12,9 @@ export const DETAIL_RECIPE = 'DETAIL_RECIPE';
 export function getRecipes(){
   return function (dispatch){
     return axios.get(`http://localhost:3001/recipes/getall`)
-    
-    .then( data => {
-      dispatch({ type: GET_RECIPES, payload: data.data })
-    })
+      .then( data => {
+        dispatch({ type: GET_RECIPES, payload: data.data })
+      })
   }
 }
 

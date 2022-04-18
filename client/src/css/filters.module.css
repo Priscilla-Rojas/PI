@@ -1,15 +1,17 @@
 
 .filter{
-  width:  max-content;
+  /* width:  max-content; */
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 10px 0;
 }
 .filter label{
   margin-right: 5px;
   color:  white;
+  text-shadow: 0px 2px 2px black;;
   margin: 0 10px;
   text-transform: capitalize;
 }

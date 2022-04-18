@@ -1,12 +1,18 @@
 import style from '../css/numberPagination.module.css';
+import { useState } from 'react';
+
+
 
 const NumberPagination = ({postPerPage, totalPost, paginate, currentPage, prev, next}) => {
-
+  // const [numbersPages, setNumbersPages] = useState([])
   
   const numbersPages = [];
+  
   for (let i = 1; i <= Math.ceil(totalPost / postPerPage); i++) {
     numbersPages.push(i)
   }
+
+
   const dysplayNummeber = 4
   const indexOfFirstPage = currentPage - dysplayNummeber < 0 ? 0 : currentPage - dysplayNummeber;
   const indexOfLastPage = indexOfFirstPage + dysplayNummeber >= numbersPages.length ? numbersPages.length : indexOfFirstPage + dysplayNummeber;

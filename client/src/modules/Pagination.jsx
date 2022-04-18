@@ -16,8 +16,10 @@ function Pagination({recipes, recipesByName, orderScore, filterByDiet, recipesFi
     (recipesFilter.length > 0)  ? setPosts(recipesFilter) : 
     (recipesByName.length > 0) ? setPosts(recipesByName): 
     setPosts(recipes)
+    setCurrentPage(1)
   },[recipesFilter, orderAbc, orderScore, recipes, recipesByName])
 
+  
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPost = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -37,7 +39,7 @@ function Pagination({recipes, recipesByName, orderScore, filterByDiet, recipesFi
     <main className={style.main} >
       <NumberPagination postPerPage = {postPerPage} totalPost = {posts.length} paginate = {paginate} currentPage = {currentPage} next = {next} prev = {prev}/>
       <Cards recipes={currentPost}/>
-      <NumberPagination postPerPage = {postPerPage} totalPost = {posts.length} paginate = {paginate} currentPage = {currentPage} next = {next} prev = {prev}/>
+      {/* <NumberPagination postPerPage = {postPerPage} totalPost = {posts.length} paginate = {paginate} currentPage = {currentPage} next = {next} prev = {prev}/> */}
       
     </main>
   )
